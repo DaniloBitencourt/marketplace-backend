@@ -1,0 +1,47 @@
+-- Inserções na tabela `usuarios`
+INSERT INTO usuarios (nome, email, senha, telefone, tipo, pontos, criado_em) VALUES
+('João Silva', 'joao@gmail.com', 'senha123', '11987654321', 'comprador', 50, NOW()),
+('Maria Oliveira', 'maria@gmail.com', 'senha123', '21987654321', 'organizador', 20, NOW()),
+('Carlos Souza', 'carlos@gmail.com', 'senha123', '31987654321', 'comprador', 100, NOW()),
+('Ana Pereira', 'ana@gmail.com', 'senha123', '41987654321', 'organizador', 10, NOW()),
+('Rafael Santos', 'rafael@gmail.com', 'senha123', '51987654321', 'comprador', 60, NOW()),
+('Fernanda Costa', 'fernanda@gmail.com', 'senha123', '61987654321', 'organizador', 40, NOW()),
+('Guilherme Alves', 'guilherme@gmail.com', 'senha123', '71987654321', 'comprador', 30, NOW()),
+('Larissa Rocha', 'larissa@gmail.com', 'senha123', '81987654321', 'comprador', 80, NOW()),
+('Paulo Lima', 'paulo@gmail.com', 'senha123', '91987654321', 'organizador', 25, NOW()),
+('Cláudia Mendes', 'claudia@gmail.com', 'senha123', '101987654321', 'comprador', 70, NOW());
+
+-- Inserções na tabela `eventos`
+INSERT INTO eventos (nome, descricao, local, data_evento, organizador_id, criado_em) VALUES
+('Show de Rock', 'Um show inesquecível de rock.', 'Estádio Municipal', '2024-12-01 20:00:00', 2, NOW()),
+('Festa da Primavera', 'Uma festa colorida para celebrar a primavera.', 'Praça Central', '2024-09-15 18:00:00', 4, NOW()),
+('Seminário de Tecnologia', 'Discussões sobre o futuro da tecnologia.', 'Centro de Convenções', '2025-03-10 09:00:00', 6, NOW()),
+('Teatro Infantil', 'Uma peça divertida para crianças.', 'Teatro Nacional', '2024-11-25 16:00:00', 2, NOW()),
+('Exposição de Arte', 'Obras de artistas contemporâneos.', 'Galeria Central', '2024-08-20 14:00:00', 4, NOW()),
+('Festival de Cinema', 'Mostra de filmes nacionais e internacionais.', 'Cinema Lumière', '2024-10-05 19:00:00', 6, NOW()),
+('Corrida de Rua', 'Uma competição emocionante para atletas amadores.', 'Avenida Paulista', '2024-07-30 07:00:00', 2, NOW()),
+('Workshop de Fotografia', 'Aprenda técnicas avançadas de fotografia.', 'Estúdio ProPhoto', '2025-01-15 10:00:00', 6, NOW());
+
+-- Inserções na tabela `ingressos`
+INSERT INTO ingressos (evento_id, vendedor_id, comprador_id, preco, categoria, status, qrcode, criado_em) VALUES
+(1, 2, 1, 150.00, 'VIP', 'vendido', 'qrcode1', NOW()),
+(2, 4, 3, 100.00, 'Regular', 'vendido', 'qrcode2', NOW()),
+(3, 6, NULL, 200.00, 'Meia', 'disponivel', 'qrcode3', NOW()),
+(4, 2, 5, 120.00, 'VIP', 'vendido', 'qrcode4', NOW()),
+(5, 4, NULL, 80.00, 'Regular', 'disponivel', 'qrcode5', NOW());
+
+-- Inserções na tabela `compras`
+INSERT INTO compras (ingresso_id, comprador_id, data_compra) VALUES
+(1, 1, NOW()),
+(2, 3, NOW()),
+(4, 5, NOW()),
+(5, 7, NOW()),
+(2, 8, NOW());
+
+-- Inserções na tabela `avaliacaos`
+INSERT INTO avaliacoes (vendedor_id, comprador_id, nota, comentario, criado_em) VALUES
+(2, 1, 5, 'Ótima experiência, recomendo!', NOW()),
+(4, 3, 4, 'Evento organizado, mas podia melhorar.', NOW()),
+(6, 5, 3, 'Atendimento médio.', NOW()),
+(2, 7, 5, 'Excelente vendedor!', NOW()),
+(4, 8, 2, 'Poderia ter sido mais claro sobre as regras.', NOW());

@@ -1,0 +1,61 @@
+-- Criação do banco de dados
+CREATE DATABASE IF NOT EXISTS ticketmarket;
+USE ticketmarket;
+
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    telefone VARCHAR(15),
+    tipo ENUM('comprador', 'organizador') NOT NULL,
+    pontos INT DEFAULT 0,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS eventos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    local VARCHAR(150) NOT NULL,
+    data_evento DATETIME NOT NULL,
+    organizador_id INT NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (organizador_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS ingressos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    evento_id INT NOT NULL,
+    vendedor_id INT NOT NULL,
+    comprador_id INT,
+    preco DECIMAL(10, 2) NOT NULL,
+    categoria ENUM('VIP', 'Regular', 'Meia') NOT NULL,
+    status ENUM('vendido', 'disponivel') DEFAULT 'disponivel',
+    qrcode VARCHAR(255) UNIQUE,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (evento_id) REFERENCES eventos(id) ON DELETE CASCADE,
+    FOREIGN KEY (vendedor_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (comprador_id) REFERENCES usuarios(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS compras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ingresso_id INT NOT NULL,
+    comprador_id INT NOT NULL,
+    data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ingresso_id) REFERENCES ingressos(id) ON DELETE CASCADE,
+    FOREIGN KEY (comprador_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS avaliacaos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vendedor_id INT NOT NULL,
+    comprador_id INT NOT NULL,
+    nota INT NOT NULL CHECK (nota BETWEEN 1 AND 5),
+    comentario TEXT,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (vendedor_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (comprador_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
